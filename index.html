@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine Edition ❤️</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&family=Montserrat:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div id="intro-screen" onclick="openLetter()">
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="flap" id="flap"></div>
+                <div class="pocket"></div>
+                <div class="heart-seal" id="seal">❤️</div>
+                <div class="letter-preview" id="letter">
+                    <p>Para ti...</p>
+                </div>
+            </div>
+        </div>
+        <p class="click-hint">Toca para abrir</p>
+    </div>
+
+    <div class="magazine-wrapper" id="main-content">
+        
+        <div id="question-view">
+            <header class="header-news">
+                <div class="meta-text">
+                    <span>Edición Especial</span>
+                    <span>14 Feb 2026</span>
+                    <span>Vol. 1</span>
+                </div>
+                <h1 class="title-gothic">Valentine Edition</h1>
+                <p class="subtitle">Una pregunta importante...</p>
+            </header>
+
+            <div class="question-box">
+                <p class="top-label">PARA MI PERSONA FAVORITA</p>
+                <p class="main-question">¿Quieres ser mi San Valentín?</p>
+                
+                <div class="buttons-container">
+                    <button class="btn btn-yes" onclick="sayYes()">¡CLARO QUE SÍ!</button>
+                    <button class="btn btn-no" id="btnNo">No</button>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <div class="gallery-title">9 Razones (y más) para amarte</div>
+                
+                <div class="reasons-grid">
+                    <div class="grid-item">
+                        <img src="foto1.jpeg" alt="Foto 1">
+                        <p>1. Tu sonrisa</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto2.jpeg" alt="Foto 2">
+                        <p>2. Tu apoyo</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto3.jpeg" alt="Foto 3">
+                        <p>3. Tu voz</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto4.jpeg" alt="Foto 4">
+                        <p>4. Tus ojos</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto5.jpeg" alt="Foto 5">
+                        <p>5. Tu risa</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto6.jpeg" alt="Foto 6">
+                        <p>6. Tus abrazos</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto7.jpeg" alt="Foto 7">
+                        <p>7. Nuestra química</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto8.jpeg" alt="Foto 8">
+                        <p>8. Tu inteligencia</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="foto9.jpeg" alt="Foto 9">
+                        <p>9. Simplemente tú</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-confirm">
+            <h1 class="confirm-title">¡Confirmado!</h1>
+            <p class="confirm-subtitle">Eres oficialmente mi San Valentín.</p>
+            
+            <div class="lock-icon">❤️🔒</div>
+            
+            <div class="ticket">
+                <p class="ticket-label">TICKET DE ACCESO</p>
+                <p class="ticket-msg">Nuestra historia continúa en:</p>
+                
+                <div id="countdown">00:00:00</div>
+                
+                <a href="#" class="download-link" id="gameLink">Una sorpresa más ❤️🔒</a>
+                <p class="pc-only">Disponible solo en PC</p>
+            </div>
+        </div>
+
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
