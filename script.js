@@ -1,7 +1,5 @@
 /* --- CONFIGURACIÓN --- */
-// FECHA DEL JUEGO: AÑO, MES (0=Ene, 1=Feb), DÍA, HORA (0-23)
-const targetDate = new Date(2026, 1, 14, 16, 0, 0).getTime(); 
-
+const targetDate = new Date(2026, 1, 14, 15, 0, 0).getTime(); 
 
 /* --- 1. ABRIR CARTA --- */
 function openLetter() {
@@ -11,21 +9,17 @@ function openLetter() {
     const intro = document.getElementById('intro-screen');
     const main = document.getElementById('main-content');
     
-    // Animación visual
     flap.classList.add('open');
     seal.style.opacity = '0';
     
-    // Intentar Audio
     const music = document.getElementById('bgMusic');
     if(music) {
         music.volume = 0.5;
         music.play().catch(e => console.log("Click necesario para audio"));
     }
 
-    // Carta sale
     letter.style.transform = 'translateY(-60px) scale(1.1)';
 
-    // Cambio de pantalla
     setTimeout(() => {
         intro.style.transform = 'translateY(-100vh)';
         main.style.display = 'block';
@@ -33,15 +27,19 @@ function openLetter() {
     }, 1000);
 }
 
-/* --- 2. BOTÓN "NO" --- */
+/* --- 2. BOTÓN "NO" ESCURRIDIZO --- */
 const btnNo = document.getElementById('btnNo');
+let isMoving = false; // Para saber si ya empezó a moverse
 
 function moveBtn() {
-    btnNo.style.position = 'fixed';
-    
-    // Límites seguros
-    const maxX = window.innerWidth - 150;
-    const maxY = window.innerHeight - 50;
+    // Si es la primera vez, cambiamos a fixed para sacarlo del flujo
+    if (!isMoving) {
+        btnNo.style.position = 'fixed';
+        isMoving = true;
+    }
+
+    const maxX = window.innerWidth - btnNo.offsetWidth - 20;
+    const maxY = window.innerHeight - btnNo.offsetHeight - 20;
     
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
@@ -49,21 +47,18 @@ function moveBtn() {
     btnNo.style.left = randomX + 'px';
     btnNo.style.top = randomY + 'px';
     
-    // Frases aleatorias (Opcional)
-    const frases = ["No...", "Ups", "Muy lento", "¿Segura?", "Intenta otra vez"];
+    const frases = ["No...", "¿Segura?", "Piénsalo bien", "Ups, se movió", "Intenta de nuevo"];
     btnNo.innerText = frases[Math.floor(Math.random() * frases.length)];
 }
 
-// Eventos
 btnNo.addEventListener('mouseover', moveBtn);
 btnNo.addEventListener('touchstart', (e) => {
     e.preventDefault(); 
     moveBtn();
 });
 
-/* --- 3. ACEPTAR --- */
+/* --- 3. ACEPTAR Y BLOQUEO DE ATRÁS --- */
 function sayYes() {
-    // Lluvia de confeti
     confetti({ 
         particleCount: 150, 
         spread: 70, 
@@ -71,9 +66,19 @@ function sayYes() {
         colors: ['#d90429', '#ffccd5'] 
     });
     
-    // Cambiar a pantalla final
+    // Cambiar visualmente
     document.getElementById('question-view').style.display = 'none';
     document.getElementById('section-confirm').style.display = 'flex';
+
+    // --- MAGIA PARA BLOQUEAR EL BOTÓN ATRÁS ---
+    // 1. Empujamos un estado nuevo al historial
+    history.pushState({ page: 'confirm' }, "Confirmado", "#love");
+    
+    // 2. Si intenta ir atrás, volvemos a empujar el estado para que se quede ahí
+    window.onpopstate = function(event) {
+        history.pushState({ page: 'confirm' }, "Confirmado", "#love");
+        alert("¡Ya dijiste que sí! No hay vuelta atrás ❤️");
+    };
 }
 
 /* --- 4. CUENTA ATRÁS --- */
@@ -87,8 +92,7 @@ const timer = setInterval(() => {
         const link = document.getElementById("gameLink");
         link.classList.add("ready");
         link.innerHTML = "JUGAR AHORA 🎮";
-        // IMPORTANTE: Pon aquí el link de tu juego cuando lo subas
-        // link.href = "https://tu-link-de-descarga.com/juego.zip";
+        // link.href = "TU_LINK";
     } else {
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
