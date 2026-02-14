@@ -1,5 +1,5 @@
 /* --- CONFIGURACIÓN --- */
-const targetDate = new Date(2026, 1, 14, 15, 0, 0).getTime(); 
+const targetDate = new Date(2026, 1, 14, 14, 0, 0).getTime(); 
 
 /* --- 1. ABRIR CARTA --- */
 function openLetter() {
@@ -88,11 +88,26 @@ const timer = setInterval(() => {
 
     if (diff < 0) {
         clearInterval(timer);
-        document.getElementById("countdown").innerText = "¡DISPONIBLE!";
+
+        // Elementos de la interfaz
+        const contador = document.getElementById("countdown");
         const link = document.getElementById("gameLink");
+
+        // Actualizar texto
+        contador.innerText = "¡YA DISPONIBLE!";
+        contador.style.animation = "pulse 1s infinite"; // Efecto latido
+
+        // Activar botón de descarga
         link.classList.add("ready");
-        link.innerHTML = "JUGAR AHORA 🎮";
-        // link.href = "TU_LINK";
+        link.innerHTML = "DESCARGAR NUESTRA HISTORIA 🎮";
+
+        // --- AQUÍ ESTÁ LA MAGIA ---
+        // Como el archivo está en la misma carpeta, solo ponemos su nombre
+        link.href = "Historia_De_Amor.exe";
+
+        // Forzamos que el navegador lo descargue en lugar de intentar abrirlo
+        link.setAttribute("download", "Historia_De_Amor.exe");
+
     } else {
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
